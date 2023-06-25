@@ -1,4 +1,4 @@
-name: Publish Release
+name: Publish_Release
 
 on:
   push:
@@ -34,3 +34,4 @@ jobs:
           generateReleaseNotes: true
           tag: ${{ github.ref_name }}
           artifacts: ${{ steps.export.outputs.archive_directory }}/* # Added "/*" at the end is glob pattern match for this action
+          draft: false
