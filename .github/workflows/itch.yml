@@ -35,4 +35,4 @@ jobs:
 
       - name: Push to itch.io
         run: |
-          ./butler push --platform windows godot-export-win jmbjr/godot-export:windows
+          ./butler push godot-export-win jmbjr/godot-export:windows
