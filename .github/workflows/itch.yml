@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy_to_Itch
 
 env:
   BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
