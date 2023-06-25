@@ -1,5 +1,8 @@
 name: Deploy
 
+env:
+  BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+    
 on:
   workflow_dispatch: {}
   release:
@@ -24,7 +27,6 @@ jobs:
           unzip butler.zip
           chmod +x butler
           ./butler -V
-          echo ${{ secrets.ITCH_API_KEY }} | ./butler login
 
       - name: Unzip the game
         run: |
