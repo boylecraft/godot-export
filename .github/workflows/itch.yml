@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  workflow_dispatch: {}
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download the game from the latest release
+        id: download
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          file: win.zip
+          repo: boylecraft/godot-export
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install and configure Butler
+        run: |
+          curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+          ./butler login --api-key ${{ secrets.ITCH_API_KEY }}
+
+      - name: Unzip the game
+        run: |
+          mkdir godot-export-win
+          unzip win.zip -d godot-export-win
+
+      - name: Push to itch.io
+        run: |
+          ./butler push --platform windows godot-export-win jmbjr/godot-export:windows
