@@ -4,8 +4,13 @@ env:
   BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
     
 on:
-  release:
-    types: [released]
+  workflow_run:
+    workflows: ["Publish_Release"]
+    types:
+      - completed
+      - released
+      - published
+      - prereleased
 
 jobs:
   publish:
